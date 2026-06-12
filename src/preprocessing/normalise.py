@@ -9,4 +9,57 @@
 # Without normalisation: Cell A appears more “expressed” even if biologically: Cell A and Cell B are actually similar
 # What normalisation does: It rescales expression values so: all cells are on similar scale
 
+import scanpy as sc
 
+def normalise(adata):
+
+    # ============================================================
+    # Normalisation of Gene Expression Data
+    # ============================================================
+
+    # Different cells can contain different total sequencing counts
+    # due to variations in sequencing depth and RNA capture efficiency.
+    #
+    # For example:
+    # - one cell may contain 50,000 total reads
+    # - another cell may contain 5,000 total reads
+    #
+    # This does not necessarily reflect true biological differences.
+    #
+    # Normalisation rescales each cell so that all cells have
+    # approximately the same total expression level, making them
+    # directly comparable for downstream analysis.
+
+    sc.pp.normalize_total(
+        adata,
+        target_sum=1e4
+    )
+
+    # target_sum = 1e4 means each cell is scaled so that
+    # the total counts across all genes sum to 10,000.
+
+
+    # ============================================================
+    # Log Transformation
+    # ============================================================
+
+    # Gene expression values are highly skewed, where a small number
+    # of genes may have extremely large expression values.
+    #
+    # Log transformation compresses large values and stabilises
+    # variance across the dataset, improving the performance of:
+    #
+    # - dimensionality reduction
+    # - graph construction
+    # - clustering
+    # - machine learning models
+    #
+    # log1p(x) computes:
+    #
+    # log(x + 1)
+    #
+    # The +1 prevents issues with zero values.
+
+    sc.pp.log1p(adata)
+
+    return adata
