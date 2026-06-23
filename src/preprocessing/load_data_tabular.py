@@ -30,8 +30,6 @@ def find_count_tables(input_dir):
     Find tabular count files in a folder.
     """
 
-    input_dir = Path(input_dir)
-
     patterns = ["*.csv", "*.tsv", "*.txt", "*.csv.gz", "*.tsv.gz", "*.txt.gz"]
     files = []
 
