@@ -30,6 +30,10 @@ def normalise(adata):
     # approximately the same total expression level, making them
     # directly comparable for downstream analysis.
 
+    # first make sure the raw data is saved in the adata.layers["counts"]
+    if "counts" not in adata.layers:
+        adata.layers["counts"] = adata.X.copy()
+
     sc.pp.normalize_total(
         adata,
         target_sum=1e4

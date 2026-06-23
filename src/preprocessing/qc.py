@@ -21,16 +21,21 @@ def run_qc(adata):
     #
     # These metrics are stored in:
     # adata.obs
+    if "counts" not in adata.layers:
+        raise ValueError(f"Missing layer: counts")
 
     sc.pp.calculate_qc_metrics(
         adata,
+        qc_vars=["mt"],
+        percent_top=None,
+        log1p=False,
         inplace=True
     )
 
     # View the first few rows of cell metadata
     # containing QC statistics.
 
-    adata.obs.head()
+    print(adata.obs.head())
 
     # ============================================================
     # Visualise Quality Control Distributions
@@ -80,4 +85,5 @@ def run_qc(adata):
     )
 
     # Print updated dataset dimensions after filtering.
+    print(f"Dataset dimensions after filtering: {adata.n_obs} cells x {adata.n_vars} genes")
     return adata
