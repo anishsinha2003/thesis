@@ -15,6 +15,7 @@ def run_celltypist(adata):
     model = celltypist.models.Model.load('Immune_All_Low.pkl')
     predictions = celltypist.annotate(adata, model=model)
 
-    adata.obs['celltypist_predictions'] = predictions.predictions
+    # adata.obs['celltypist_predictions'] = predictions.predictions
+    adata = predictions.to_adata()
 
     return adata

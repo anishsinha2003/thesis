@@ -44,9 +44,9 @@ def load_single_10x_sample(sample_path, prefix):
         make_unique=True,
         prefix=prefix,
     )
-    
+
     # add basic metadata column to the AnnData object
-    adata.obs["sample_path"] = sample_path
+    adata.obs["sample_path"] = str(sample_path)
     adata.obs["sample_id"] = sample_path.name
 
     # Print dataset dimensions:
@@ -76,13 +76,12 @@ def is_10x_mtx_folder(folder, prefix):
         and len(files & feature_names) > 0
     )
 
-def find_10x_mtx_samples(input_dir, prefix): 
+def find_10x_mtx_samples(input_dir, prefix):
     """
     Recursively find sample folders containing standard 10x mtx files.
     """
 
     folders = []
-
     if is_10x_mtx_folder(input_dir, prefix=prefix):
         folders.append(input_dir)
 
@@ -94,7 +93,7 @@ def find_10x_mtx_samples(input_dir, prefix):
     return folders
 
 def read_multiple_10x_samples(input_dir, prefix):
-    # parse the sample dir, each dir has multiple 10x mtx directories 
+    # parse the sample dir, each dir has multiple 10x mtx directories
     # read each 10x mtx directory into an AnnData object
     # concatenate the AnnData objects into a single AnnData object
     # return the AnnData object
