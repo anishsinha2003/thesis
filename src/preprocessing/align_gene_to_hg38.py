@@ -4,13 +4,11 @@ import anndata as ad
 import scanpy as sc
 import pandas as pd
 
-def preprocess_gtf_file_hg38():
+def preprocess_gtf_file_hg38(gff3_path):
     # ============================================================
     # Preprocess GFF3 File
     # Using gencode v36 annotation gtf file, we extract the ensembl id,
     # ============================================================
-
-    gff3_path = '/Users/anishsinha/Desktop/thesis/preprocessing/gene_alignment/Homo_sapiens.GRCh38.115.gff3'
 
     gene_id_to_symbol = {}
 
@@ -46,15 +44,13 @@ def preprocess_gtf_file_hg38():
     return gene_id_symbol_df
 
 
-def preprocess_gtf_file_hg37():
+def preprocess_gtf_file_hg37(gtf_file):
     # ============================================================
     # Preprocess GTF File
     # Using gencode v37 annotation gtf file, we extract the ensembl id,
     # ============================================================
 
     # Parse gencode.v19.chr_patch_hapl_scaff.annotation.gtf to extract symbol, Ensembl gene ID, and gene type
-
-    gtf_file = "/Users/anishsinha/Desktop/thesis/preprocessing/gene_alignment/gencode.v19.chr_patch_hapl_scaff.annotation.gtf"
 
     def parse_gtf_attributes(attr_string):
         """Parse the attribute column of a GTF file into a dict."""
@@ -94,10 +90,10 @@ def preprocess_gtf_file_hg37():
     return gencode_v19_anno_df
 
 
-def align_gene_to_hg38(adata):
+def align_gene_to_hg38(adata, gff3_path, gtf_file):
     # read in gencode gff file
-    hg38_gene_id_symbol_df = preprocess_gtf_file_hg38()
-    hg37_gene_id_symbol_df = preprocess_gtf_file_hg37()
+    hg38_gene_id_symbol_df = preprocess_gtf_file_hg38(gff3_path)
+    hg37_gene_id_symbol_df = preprocess_gtf_file_hg37(gtf_file)
 
     # lookup dictionaries (ADDED)
     hg38_ensid_to_symbol = dict(

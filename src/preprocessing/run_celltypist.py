@@ -2,7 +2,7 @@ import scanpy as sc
 import celltypist.models
 import celltypist.annotate
 
-def run_celltypist(adata):
+def run_celltypist(adata, model_name="Immune_All_Low.pkl"):
 
     # ============================================================
     # CellTypist annotation
@@ -12,7 +12,7 @@ def run_celltypist(adata):
     # It uses a pre-trained model to predict the cell type of each cell.
     # The model is trained on a large dataset of single-cell RNA-seq data.
 
-    model = celltypist.models.Model.load('Immune_All_Low.pkl')
+    model = celltypist.models.Model.load(model_name)
     predictions = celltypist.annotate(adata, model=model)
 
     # adata.obs['celltypist_predictions'] = predictions.predictions

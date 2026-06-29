@@ -1,2 +1,0 @@
-# read h5ad file into an AnnData object
-# this can link to the R code that was used to generate the h5ad files

@@ -33,7 +33,11 @@ def normalise(adata):
     # first make sure the raw data is saved in the adata.layers["counts"]
     if "counts" not in adata.layers:
         adata.layers["counts"] = adata.X.copy()
-
+    
+    # CHANGED by adding raw data to the adata
+    # to ensure the raw data is not changed
+    adata.raw = adata.copy()
+    
     sc.pp.normalize_total(
         adata,
         target_sum=1e4

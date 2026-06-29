@@ -21,11 +21,13 @@ def run_qc(adata):
     #
     # These metrics are stored in:
     # adata.obs
-
+    
     if "counts" not in adata.layers:
-        raise ValueError(f"Missing layer: counts")
-
-
+        adata.layers["counts"] = adata.X.copy()
+    
+    # CHANGED by adding raw data to the adata
+    # to ensure the raw data is not changed
+    adata.raw = adata.copy()
     adata.var["mt"] = adata.var_names.str.startswith("MT-")
 
     sc.pp.calculate_qc_metrics(
