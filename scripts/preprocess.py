@@ -2,10 +2,12 @@
 
 from pathlib import Path
 
-from src.preprocessing.load_data_h5ad_data import read_multiple_h5ad_files
-from src.preprocessing.load_data_tabular import load_tabular_folder
-from src.preprocessing.load_data_10x_h5 import read_multiple_10x_h5_samples
-from src.preprocessing.load_data_10x_mtx import read_multiple_10x_samples
+from src.preprocessing.config import DATASETS
+from src.preprocessing.config import GFF3_PATH, GTF_FILE
+from src.preprocessing.loaders.load_data_h5ad_data import read_multiple_h5ad_files
+from src.preprocessing.loaders.load_data_tabular import load_tabular_folder
+from src.preprocessing.loaders.load_data_10x_h5 import read_multiple_10x_h5_samples
+from src.preprocessing.loaders.load_data_10x_mtx import read_multiple_10x_samples
 from src.preprocessing.qc import run_qc
 from src.preprocessing.normalise import normalise
 from src.preprocessing.run_celltypist import run_celltypist
@@ -142,12 +144,43 @@ def validate_processed_adata(adata, hg38_gene_df):
 
     print("=" * 60)
 
+def validate_required_metadata(adata):
+    """
+    Check that required metadata columns exist in adata.obs.
+    Raises an error if any are missing.
+    """
+
+    required_columns = [
+        "Cancer type",
+        "Tissue",
+        "Response",
+        "Patient ID",
+        "Sample ID",
+        "Treatment",
+    ]
+
+    missing_columns = [
+        col for col in required_columns
+        if col not in adata.obs.columns
+    ]
+
+    if missing_columns:
+        raise ValueError(
+            "Missing required metadata columns: "
+            + ", ".join(missing_columns)
+        )
+
+    print("✓ Metadata validation passed")
+    print("✓ Required columns present:")
+    print(required_columns)
 
 def preprocess_dataset(
     input_dir,
     output_file,
     data_format,
-    prefix=""
+    metadata_fn,
+    prefix="",
+
 ):
     """
     Complete preprocessing pipeline for one dataset.
@@ -231,31 +264,47 @@ def preprocess_dataset(
     # ============================================================
 
     print("\nAligning Genes To HG38...")
-    adata = align_gene_to_hg38(adata)
+    gff3_path = GFF3_PATH
+    gtf_file = GTF_FILE
+    adata = align_gene_to_hg38(adata, gff3_path, gtf_file)
+
+    # ============================================================
+    # Metadata Alignment
+    # ============================================================
+
+    print("\MetaData Alignment...")
+    adata = metadata_fn(adata)
+    print(adata.obs.head().T)
 
     # ============================================================
     # Validate Processed Data
     # ============================================================
-    print("\nValidating Processed AnnData...")
-    hg38_gene_df = preprocess_gtf_file_hg38()
+    print("\nValidating AnnData...")
+    hg38_gene_df = preprocess_gtf_file_hg38(gff3_path)
 
     validate_processed_adata(
         adata,
         hg38_gene_df
     )
 
+    validate_required_metadata(
+        adata,
+    )
+
     # ============================================================
     # Save Dataset
     # ============================================================
 
-    save_h5ad_file(adata, output_file)
+    # save_h5ad_file(adata, output_file)
 
     return adata
 
+dataset = DATASETS["GSE212217"]
 
 preprocess_dataset(
-    input_dir="/Users/anishsinha/Desktop/thesis/preprocessing/datasets_to_preprocess/GSE217245",
-    output_file="/Users/anishsinha/Desktop/thesis/preprocessing/preprocessed_data/GSE217245",
-    data_format="10x",
-    prefix=""
+    input_dir=dataset["input_dir"],
+    output_file=dataset["output_file"],
+    data_format=dataset["data_format"],
+    prefix=dataset["prefix"],
+    metadata_fn=dataset["metadata_fn"],
 )
