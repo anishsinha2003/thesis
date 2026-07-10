@@ -8,6 +8,7 @@ from src.preprocessing.loaders.load_data_h5ad_data import read_multiple_h5ad_fil
 from src.preprocessing.loaders.load_data_tabular import load_tabular_folder
 from src.preprocessing.loaders.load_data_10x_h5 import read_multiple_10x_h5_samples
 from src.preprocessing.loaders.load_data_10x_mtx import read_multiple_10x_samples
+from src.preprocessing.loaders.dataset_specfic_loaders.GSE169246 import load_gse169246
 from src.preprocessing.qc import run_qc
 from src.preprocessing.normalise import normalise
 from src.preprocessing.run_celltypist import run_celltypist
@@ -125,6 +126,32 @@ def validate_processed_adata(adata, hg38_gene_df):
     print(
         f"Overlap = {pct:.2f}%"
     )
+    # ------------------------------------------------
+    # Samples
+    # ------------------------------------------------
+
+    print("\nSamples")
+
+    if "sample_id" in adata.obs.columns:
+
+        sample_counts = adata.obs["sample_id"].value_counts()
+
+        print(f"Number of unique samples: {len(sample_counts)}")
+
+        if len(sample_counts) > 20:
+
+            for sample, count in sample_counts.iloc[:20].items():
+                print(f"{sample}: {count} cells")
+
+            print("...")
+
+        else:
+
+            for sample, count in sample_counts.items():
+                print(f"{sample}: {count} cells")
+
+    else:
+        print("✗ sample_id column missing")
 
     # ------------------------------------------------
     # Missing values
@@ -213,7 +240,8 @@ def preprocess_dataset(
         adata = read_multiple_10x_h5_samples(
             Path(input_dir)
         )
-
+    elif callable(data_format):
+        adata = data_format(Path(input_dir))
     else:
         raise ValueError(
             f"Unsupported format: {data_format}"
@@ -236,7 +264,6 @@ def preprocess_dataset(
 
     print("\nRunning QC...")
     adata = run_qc(adata)
-
     print(adata)
 
     # ============================================================
@@ -276,6 +303,8 @@ def preprocess_dataset(
     adata = metadata_fn(adata)
     print(adata.obs.head().T)
 
+
+
     # ============================================================
     # Validate Processed Data
     # ============================================================
@@ -299,7 +328,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE212217"]
+dataset = DATASETS["GSE145281"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],

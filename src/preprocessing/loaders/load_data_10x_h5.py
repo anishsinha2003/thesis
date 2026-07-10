@@ -55,7 +55,6 @@ def read_multiple_10x_h5_samples(input_dir):
         adata = load_single_10x_h5(file)
 
         adatas.append(adata)
-        break
 
     combined = ad.concat(
         adatas,
