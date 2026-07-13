@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 
+from ..config import DATASETS_TO_PREPROCESS
+
 # ============================================================
 # GSE212217 Metadata
 # Endometrial Cancer
@@ -9,7 +11,7 @@ import re
 
 # Load metadata file
 metadata = pd.read_csv(
-    "/Users/anishsinha/Desktop/thesis/preprocessing/datasets_to_preprocess/GSE212217/GSE212217_seurat_scRNAseq_metadata.txt",
+    DATASETS_TO_PREPROCESS / "GSE212217/GSE212217_seurat_scRNAseq_metadata.txt",
     sep="\t"
 )
 

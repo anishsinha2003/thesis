@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from src.preprocessing.config import DATASETS
-from src.preprocessing.config import GFF3_PATH, GTF_FILE
+from src.preprocessing.dataset_config import DATASETS
+from src.preprocessing.config import GTF_FILE, GFF3_PATH
 from src.preprocessing.loaders.load_data_h5ad_data import read_multiple_h5ad_files
 from src.preprocessing.loaders.load_data_tabular import load_tabular_folder
 from src.preprocessing.loaders.load_data_10x_h5 import read_multiple_10x_h5_samples
@@ -328,7 +328,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE145281"]
+dataset = DATASETS["GSE217245"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
