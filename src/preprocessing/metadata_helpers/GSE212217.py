@@ -11,7 +11,7 @@ from ..config import DATASETS_TO_PREPROCESS
 
 # Load metadata file
 metadata = pd.read_csv(
-    DATASETS_TO_PREPROCESS / "GSE212217/GSE212217_seurat_scRNAseq_metadata.txt",
+    DATASETS_TO_PREPROCESS / "GSE212217" / "GSE212217_seurat_scRNAseq_metadata.txt",
     sep="\t"
 )
 
