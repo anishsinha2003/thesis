@@ -328,7 +328,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE217245"]
+dataset = DATASETS["GSE130157"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
