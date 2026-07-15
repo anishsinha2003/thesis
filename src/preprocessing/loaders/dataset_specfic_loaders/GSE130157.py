@@ -7,12 +7,15 @@ from scipy.sparse import csr_matrix
 
 def load_single_rawcounts(file_path):
 
-    df = pd.read_csv(
-        file_path,
-        sep="\t"
-    )
+    # df = pd.read_csv(
+    #     file_path,
+    #     sep="\t"
+    # )
+    df = pd.read_csv(file_path, sep="\t", nrows=5)
 
-    gene_symbols = df["Gene_Symbol"]
+    print(df.head())
+    print(df.columns[:20])
+    gene_symbols = df["Gene Symbol"]
 
     count_matrix = df.iloc[:, 3:]
 
@@ -23,8 +26,8 @@ def load_single_rawcounts(file_path):
     adata.var_names = gene_symbols.astype(str)
     adata.obs_names = count_matrix.columns.astype(str)
 
-    adata.var["Gene_ID_1"] = df["Gene_ID_1"].values
-    adata.var["Gene_ID_2"] = df["Gene_ID_2"].values
+    adata.var["Gene_ID_1"] = df["Gene ID_1"].values
+    adata.var["Gene_ID_2"] = df["Gene ID_2"].values
 
     adata.var_names_make_unique()
 
