@@ -19,6 +19,13 @@ def load_single_rawcounts(file_path):
 
     count_matrix = df.iloc[:, 3:]
 
+    count_matrix = count_matrix.apply(
+    pd.to_numeric,
+    errors="coerce"
+)
+
+    count_matrix = count_matrix.fillna(0)
+
     adata = ad.AnnData(
         X=csr_matrix(count_matrix.T)
     )
