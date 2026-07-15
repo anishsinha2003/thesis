@@ -36,6 +36,8 @@ def add_metadata(adata):
         annotations["Cancer"].values
     )
 
+    adata.obs["Tissue"] = "PBMC"
+
     adata.obs["Treatment"] = (
         "mFOLFOX6 + Pembrolizumab"
     )
