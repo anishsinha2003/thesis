@@ -132,9 +132,9 @@ def validate_processed_adata(adata, hg38_gene_df):
 
     print("\nSamples")
 
-    if "sample_id" in adata.obs.columns:
+    if "Sample ID" in adata.obs.columns:
 
-        sample_counts = adata.obs["sample_id"].value_counts()
+        sample_counts = adata.obs["Sample ID"].value_counts()
 
         print(f"Number of unique samples: {len(sample_counts)}")
 
@@ -151,7 +151,7 @@ def validate_processed_adata(adata, hg38_gene_df):
                 print(f"{sample}: {count} cells")
 
     else:
-        print("✗ sample_id column missing")
+        print("✗ Sample ID column missing")
 
     # ------------------------------------------------
     # Missing values
