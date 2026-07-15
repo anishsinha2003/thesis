@@ -153,6 +153,58 @@ def validate_processed_adata(adata, hg38_gene_df):
     else:
         print("✗ Sample ID column missing")
 
+    required_cols = ["Sample ID", "Response", "Patient ID"]
+
+    if all(col in adata.obs.columns for col in required_cols):
+
+        sample_summary = (
+            adata.obs[
+                ["Sample ID", "Response", "Patient ID"]
+            ]
+            .drop_duplicates()
+            .copy()
+        )
+
+        cell_counts = (
+            adata.obs["Sample ID"]
+            .value_counts()
+            .rename("Cell Count")
+        )
+
+        sample_summary["Cell Count"] = (
+            sample_summary["Sample ID"]
+            .map(cell_counts)
+        )
+
+        sample_summary = sample_summary.sort_values(
+            "Sample ID"
+        )
+
+        print(f"Number of unique samples: {len(sample_summary)}")
+        print()
+
+        print(
+            sample_summary[
+                [
+                    "Sample ID",
+                    "Patient ID",
+                    "Response",
+                    "Cell Count",
+                ]
+            ].to_string(index=False)
+        )
+
+    else:
+
+        missing = [
+            col for col in required_cols
+            if col not in adata.obs.columns
+        ]
+
+        print(
+            f"✗ Missing columns: {missing}"
+        )
+
     # ------------------------------------------------
     # Missing values
     # ------------------------------------------------
@@ -328,7 +380,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE130157"]
+dataset = DATASETS["GSE217245"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
