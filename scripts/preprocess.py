@@ -153,40 +153,36 @@ def validate_processed_adata(adata, hg38_gene_df):
     else:
         print("✗ Sample ID column missing")
 
-    required_cols = ["Sample ID", "Response", "Patient ID"]
+    required_cols = ["Patient ID", "Response"]
 
     if all(col in adata.obs.columns for col in required_cols):
 
-        sample_summary = (
+        patient_summary = (
             adata.obs[
-                ["Sample ID", "Response", "Patient ID"]
+                ["Patient ID", "Response"]
             ]
             .drop_duplicates()
             .copy()
         )
 
-        cell_counts = (
-            adata.obs["Sample ID"]
-            .value_counts()
-            .rename("Cell Count")
+        patient_summary["Cell Count"] = (
+            patient_summary["Patient ID"]
+            .map(
+                adata.obs.groupby("Patient ID")
+                .size()
+            )
         )
 
-        sample_summary["Cell Count"] = (
-            sample_summary["Sample ID"]
-            .map(cell_counts)
+        patient_summary = patient_summary.sort_values(
+            "Patient ID"
         )
 
-        sample_summary = sample_summary.sort_values(
-            "Sample ID"
-        )
-
-        print(f"Number of unique samples: {len(sample_summary)}")
+        print(f"Number of unique patients: {len(patient_summary)}")
         print()
 
         print(
-            sample_summary[
+            patient_summary[
                 [
-                    "Sample ID",
                     "Patient ID",
                     "Response",
                     "Cell Count",
