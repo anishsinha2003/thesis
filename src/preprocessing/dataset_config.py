@@ -12,12 +12,14 @@ from .metadata_helpers.GSE205506 import add_metadata as gse205506_metadata
 from .metadata_helpers.GSE145281 import add_metadata as gse145281_metadata
 from .metadata_helpers.GSE130157 import add_metadata as gse130157_metadata
 from .metadata_helpers.GSE270235 import add_metadata as gse270235_metadata
+from .metadata_helpers.bi import add_metadata as bi_metadata
 
 
 from .loaders.dataset_specfic_loaders.GSE169246 import load_gse169246
 from .loaders.dataset_specfic_loaders.GSE145281 import load_gse145281
 from .loaders.dataset_specfic_loaders.GSE130157 import load_gse130157
 from .loaders.dataset_specfic_loaders.GSE270235 import load_gse270235
+from .loaders.dataset_specfic_loaders.bi import load_bi
 
 # ============================================================
 # Dataset Configurations
@@ -119,6 +121,13 @@ DATASETS = {
         "data_format": load_gse130157,
         "prefix": "",
         "metadata_fn": gse130157_metadata,
+    },
+    "bi": {
+        "input_dir": DATASETS_TO_PREPROCESS / "bi",
+        "output_file": PREPROCESSED_DATA / "bi",
+        "data_format": load_bi,
+        "prefix": "",
+        "metadata_fn": bi_metadata,
     },
 
 }

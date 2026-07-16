@@ -376,7 +376,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE270235"]
+dataset = DATASETS["bi"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
