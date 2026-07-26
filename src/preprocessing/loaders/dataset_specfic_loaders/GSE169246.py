@@ -32,7 +32,7 @@ def load_gse169246(input_dir):
 
     adata = ad.AnnData(X)
 
-    adata.var_names = genes[1].astype(str)
+    adata.var_names = genes[0].astype(str)
     adata.var_names_make_unique()
 
     # Store the original barcode + sample name
