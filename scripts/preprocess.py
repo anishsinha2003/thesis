@@ -295,7 +295,13 @@ def preprocess_dataset(
             f"Unsupported format: {data_format}"
         )
 
+    print("PASSSSSSSSSSS ----------------------------------------------- ")
     print(adata)
+    print(adata.obs_names[:20])
+    print(sum("Post" in x for x in adata.obs_names))
+    print(sum("Pre" in x for x in adata.obs_names))
+    samples = sorted(set(x.split(".")[-1] for x in adata.obs_names))
+    print(samples)
 
     # ============================================================
     # Normalisation
@@ -351,6 +357,17 @@ def preprocess_dataset(
     adata = metadata_fn(adata)
     print(adata.obs.head().T)
 
+    print("----------------------------------------- CHeCK AFTER thIS -----------------------------------------")
+    print(sorted(adata.obs["Sample ID"].unique()))
+    print(adata.obs["Timepoint"].value_counts())
+
+    post_samples = adata.obs[
+    adata.obs["Sample ID"].str.startswith("Post")
+    ]["Sample ID"].unique()
+
+    print(post_samples)
+    print(f"Number of post samples: {len(post_samples)}")
+
 
 
     # ============================================================
@@ -376,7 +393,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["bi"]
+dataset = DATASETS["GSE169246"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],

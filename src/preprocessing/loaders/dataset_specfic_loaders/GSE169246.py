@@ -32,13 +32,26 @@ def load_gse169246(input_dir):
 
     adata = ad.AnnData(X)
 
-    adata.var_names = genes[0].astype(str)
-    adata.obs_names = barcodes[0].astype(str)
-
     adata.var_names_make_unique()
 
+    # Store the original barcode + sample name
+    adata.obs_names = barcodes[0].astype(str)
+
+    # Extract sample name (e.g. Pre_P007_b, Post_P019_t)
+    adata.obs["sample_id"] = (
+        adata.obs_names.to_series()
+        .str.split(".")
+        .str[-1]
+    )
+
+    # Extract the cell barcode only
+    adata.obs["barcode"] = (
+        adata.obs_names.to_series()
+        .str.split(".")
+        .str[0]
+    )
+
     adata.obs["sample_path"] = str(input_dir)
-    adata.obs["sample_id"] = "GSE169246"
 
     print(
         f"Dataset dimensions: "

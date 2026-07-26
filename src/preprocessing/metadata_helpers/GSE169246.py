@@ -41,7 +41,10 @@ def get_patient_id(sample):
 
 def get_sample_id(sample):
 
-    match = re.search(r"(Pre_P\d+_[bt])", sample)
+    match = re.search(
+        r"((?:Pre|Post|Prog)_P\d+_[bt])",
+        sample,
+    )
 
     if match:
         return match.group(1)
@@ -51,8 +54,14 @@ def get_sample_id(sample):
 
 def get_timepoint(sample):
 
-    if "Pre_" in sample:
+    if sample.startswith("Pre_"):
         return "Baseline"
+
+    elif sample.startswith("Post_"):
+        return "Post-treatment"
+
+    elif sample.startswith("Prog_"):
+        return "Progression"
 
     return "Unknown"
 
