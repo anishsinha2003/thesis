@@ -33,47 +33,55 @@ DATASETS = {
         "data_format": "10x",
         "prefix": "",
         "metadata_fn": gse217245_metadata,
+        "source_assembly": "hg38",
     },
-    # workss - memory to small
+
+    # works - memory too small
     "GSE243572": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE243572",
         "output_file": PREPROCESSED_DATA / "GSE243572",
         "data_format": "h5",
         "prefix": "",
         "metadata_fn": gse243572_metadata,
+        "source_assembly": "hg38",
     },
-    # # RDS
+
+    # RDS
     "GSE270235": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE270235",
         "output_file": PREPROCESSED_DATA / "GSE270235",
         "data_format": load_gse270235,
         "prefix": "",
         "metadata_fn": gse270235_metadata,
+        "source_assembly": "hg38",
     },
-    # works - memory to small
+
+    # works - memory too small
     "GSE212217": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE212217",
         "output_file": PREPROCESSED_DATA / "GSE212217",
         "data_format": "h5",
         "prefix": "",
         "metadata_fn": gse212217_metadata,
+        "source_assembly": "hg38",
     },
+
     # cant find raw data
     # "EGAS00001004809": {
-    #     "input_dir": DATASETS_TO_PREPROCESS / "EGAS00001004809",
-    #     "output_file": PREPROCESSED_DATA / "EGAS00001004809",
-    #     "data_format": "h5ad",
-    #     "prefix": "",
-    #     "metadata_fn": gse212217_metadata,
+    #     ...
+    #     "source_assembly": "hg38",
     # },
-    # works - memroy too small
+
+    # works - memory too small
     "GSE169246": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE169246",
         "output_file": PREPROCESSED_DATA / "GSE169246",
         "data_format": load_gse169246,
         "prefix": "",
         "metadata_fn": gse169246_metadata,
+        "source_assembly": "hg38",
     },
+
     # works
     "GSE164237": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE164237",
@@ -81,7 +89,9 @@ DATASETS = {
         "data_format": "h5",
         "prefix": "",
         "metadata_fn": gse164237_metadata,
+        "source_assembly": "hg38",
     },
+
     # works
     "GSE185204": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE185204",
@@ -89,7 +99,9 @@ DATASETS = {
         "data_format": "10x",
         "prefix": "",
         "metadata_fn": gse185204_metadata,
+        "source_assembly": "hg19",
     },
+
     # works
     "GSE229353": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE229353",
@@ -97,7 +109,9 @@ DATASETS = {
         "data_format": "10x",
         "prefix": "",
         "metadata_fn": gse229353_metadata,
+        "source_assembly": "hg38",
     },
+
     # works
     "GSE205506": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE205506",
@@ -105,7 +119,9 @@ DATASETS = {
         "data_format": "10x",
         "prefix": "",
         "metadata_fn": gse205506_metadata,
+        "source_assembly": "hg38",
     },
+
     # works
     "GSE145281": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE145281",
@@ -113,7 +129,9 @@ DATASETS = {
         "data_format": load_gse145281,
         "prefix": "",
         "metadata_fn": gse145281_metadata,
+        "source_assembly": "hg38",
     },
+
     # works
     "GSE130157": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE130157",
@@ -121,13 +139,15 @@ DATASETS = {
         "data_format": load_gse130157,
         "prefix": "",
         "metadata_fn": gse130157_metadata,
+        "source_assembly": "hg19",
     },
+
     "bi": {
         "input_dir": DATASETS_TO_PREPROCESS / "bi",
         "output_file": PREPROCESSED_DATA / "bi",
         "data_format": load_bi,
         "prefix": "",
         "metadata_fn": bi_metadata,
+        "source_assembly": "hg19",
     },
-
 }

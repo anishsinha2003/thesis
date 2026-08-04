@@ -12,8 +12,8 @@ from src.preprocessing.loaders.load_data_10x_mtx import read_multiple_10x_sample
 from src.preprocessing.loaders.dataset_specfic_loaders.GSE169246 import load_gse169246
 from src.preprocessing.qc import run_qc
 from src.preprocessing.normalise import normalise
-from src.preprocessing.run_celltypist import run_celltypist
-from src.preprocessing.align_gene_to_hg38 import align_gene_to_hg38, preprocess_gtf_file_hg38
+# from src.preprocessing.run_celltypist import run_celltypistx
+# from src.preprocessing.align_gene_to_hg38 import align_gene_to_hg38, preprocess_gtf_file_hg38
 from src.preprocessing.save_h5ad_file import save_h5ad_file
 from src.preprocessing.gene_harmonise_celltypist import harmonise_and_annotate
 
@@ -23,7 +23,7 @@ from src.preprocessing.gene_harmonise_celltypist import harmonise_and_annotate
 # create this function later
 # from src.preprocessing.filter_immune_cells import filter_immune_cells
 
-def validate_processed_adata(adata, hg38_gene_df):
+def validate_processed_adata(adata):
 
     print("=" * 60)
     print("ADATA VALIDATION")
@@ -119,16 +119,16 @@ def validate_processed_adata(adata, hg38_gene_df):
         * 100
     )
 
-    print("\nHG38 Alignment")
+    # print("\nHG38 Alignment")
 
-    print(
-        f"{hg38_overlap.sum()} / "
-        f"{adata.n_vars}"
-    )
+    # print(
+    #     f"{hg38_overlap.sum()} / "
+    #     f"{adata.n_vars}"
+    # )
 
-    print(
-        f"Overlap = {pct:.2f}%"
-    )
+    # print(
+    #     f"Overlap = {pct:.2f}%"
+    # )
     # ------------------------------------------------
     # Samples
     # ------------------------------------------------
@@ -257,6 +257,7 @@ def preprocess_dataset(
     output_file,
     data_format,
     metadata_fn,
+    source_assembly,
     prefix="",
 
 ):
@@ -351,7 +352,7 @@ def preprocess_dataset(
 
     adata = harmonise_and_annotate(
         adata,
-        source_assembly="hg38",          # or "hg19" or "auto"
+        source_assembly=source_assembly,          # or "hg19" or "auto"
         hg19_gtf=GTF_FILE,               # your hg19 GTF
         target_hg38_gff=GFF3_PATH,       # your HG38 GFF3
         celltypist_model="Immune_All_Low.pkl"
@@ -384,11 +385,10 @@ def preprocess_dataset(
     # Validate Processed Data
     # ============================================================
     print("\nValidating AnnData...")
-    hg38_gene_df = preprocess_gtf_file_hg38(gff3_path)
+    # hg38_gene_df = preprocess_gtf_file_hg38(gff3_path)
 
     validate_processed_adata(
         adata,
-        hg38_gene_df
     )
 
     validate_required_metadata(
@@ -403,7 +403,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE169246"]
+dataset = DATASETS["GSE217245"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
@@ -411,4 +411,5 @@ preprocess_dataset(
     data_format=dataset["data_format"],
     prefix=dataset["prefix"],
     metadata_fn=dataset["metadata_fn"],
+    source_assembly=dataset["source_assembly"],
 )
