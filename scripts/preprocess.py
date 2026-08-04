@@ -109,15 +109,15 @@ def validate_processed_adata(adata):
     # HG38 overlap
     # ------------------------------------------------
 
-    hg38_overlap = adata.var_names.isin(
-        hg38_gene_df["gene_symbol"]
-    )
+    # hg38_overlap = adata.var_names.isin(
+    #     hg38_gene_df["gene_symbol"]
+    # )
 
-    pct = (
-        hg38_overlap.sum()
-        / adata.n_vars
-        * 100
-    )
+    # pct = (
+    #     hg38_overlap.sum()
+    #     / adata.n_vars
+    #     * 100
+    # )
 
     # print("\nHG38 Alignment")
 
