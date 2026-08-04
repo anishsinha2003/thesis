@@ -1194,13 +1194,7 @@ def harmonise_and_annotate(
             mode=mode,
             p_thres=p_thres,
         )
-        #
-        print("0-----------------------------------------------------:)")
-        print("out.obs_names unique:", out.obs_names.is_unique)
-        print("out.obs_names duplicates:", out.obs_names.duplicated().sum())
 
-        print("prediction index unique:", predictions.predicted_labels.index.is_unique)
-        print("prediction index duplicates:", predictions.predicted_labels.index.duplicated().sum())
         chosen_column = _insert_celltypist_results(
             out,
             predictions,

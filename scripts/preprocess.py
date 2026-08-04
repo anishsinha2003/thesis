@@ -307,6 +307,8 @@ def preprocess_dataset(
     samples = sorted(set(x.split(".")[-1] for x in adata.obs_names))
     print(samples)
 
+    adata.obs_names_make_unique()
+
     # ============================================================
     # Normalisation
     # ============================================================
