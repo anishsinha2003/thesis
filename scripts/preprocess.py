@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+
 from src.preprocessing.dataset_config import DATASETS
 from src.preprocessing.config import GTF_FILE, GFF3_PATH
 from src.preprocessing.loaders.load_data_h5ad_data import read_multiple_h5ad_files
@@ -14,6 +15,8 @@ from src.preprocessing.normalise import normalise
 from src.preprocessing.run_celltypist import run_celltypist
 from src.preprocessing.align_gene_to_hg38 import align_gene_to_hg38, preprocess_gtf_file_hg38
 from src.preprocessing.save_h5ad_file import save_h5ad_file
+from src.preprocessing.gene_harmonise_celltypist import harmonise_and_annotate
+
 # from src.preprocessing.preprocess_dataset import preprocess_dataset
 
 # TODO:
@@ -320,34 +323,41 @@ def preprocess_dataset(
     adata = run_qc(adata)
     print(adata)
 
+    # # ============================================================
+    # # Cell Type Annotation
+    # # ============================================================
+
+    # print("\nRunning CellTypist...")
+    # adata = run_celltypist(adata)
+
+
+    # print(adata)
+
+    # # ============================================================
+    # # Gene Alignment
+    # # ============================================================
+
+    # print("\nAligning Genes To HG38...")
+    # gff3_path = GFF3_PATH
+    # gtf_file = GTF_FILE
+    # adata = align_gene_to_hg38(adata, gff3_path, gtf_file)
+
     # ============================================================
-    # Cell Type Annotation
+    # Gene Harmonisation + CellTypist
     # ============================================================
 
-    print("\nRunning CellTypist...")
-    adata = run_celltypist(adata)
+
+    print("\nRunning Gene Harmonisation + CellTypist...")
+
+    adata = harmonise_and_annotate(
+        adata,
+        source_assembly="hg38",          # or "hg19" or "auto"
+        hg19_gtf=GTF_FILE,               # your hg19 GTF
+        target_hg38_gff=GFF3_PATH,       # your HG38 GFF3
+        celltypist_model="Immune_All_Low.pkl"
+    )
 
     print(adata)
-
-    # ============================================================
-    # Keep Immune Cells
-    # ============================================================
-
-    print("\nFiltering Immune Cells...")
-
-    # TODO:
-    # adata = filter_immune_cells(adata)
-
-    print(adata)
-
-    # ============================================================
-    # Gene Alignment
-    # ============================================================
-
-    print("\nAligning Genes To HG38...")
-    gff3_path = GFF3_PATH
-    gtf_file = GTF_FILE
-    adata = align_gene_to_hg38(adata, gff3_path, gtf_file)
 
     # ============================================================
     # Metadata Alignment
