@@ -1,6 +1,7 @@
 # src/preprocessing/preprocess_dataset.py
 
 from pathlib import Path
+import pandas as pd
 
 
 from src.preprocessing.dataset_config import DATASETS
@@ -300,12 +301,14 @@ def preprocess_dataset(
         )
 
     print("PASSSSSSSSSSS ----------------------------------------------- ")
-    print(adata)
-    print(adata.obs_names[:20])
-    print(sum("Post" in x for x in adata.obs_names))
-    print(sum("Pre" in x for x in adata.obs_names))
-    samples = sorted(set(x.split(".")[-1] for x in adata.obs_names))
-    print(samples)
+
+    tcr = pd.read_csv(
+    	"/Users/anishsinha/Downloads/GSM7791218_SPFS_C1D1_1_5_1_10_1_12_1_17_TCR_filtered_contig_annotations.csv.gz"
+    )
+
+    print(tcr.shape)
+    print(tcr.columns.tolist())
+    print(tcr.head())
 
     adata.obs_names_make_unique()
 
@@ -370,9 +373,6 @@ def preprocess_dataset(
     adata = metadata_fn(adata)
     print(adata.obs.head().T)
 
-    print("----------------------------------------- CHeCK AFTER thIS -----------------------------------------")
-    print(sorted(adata.obs["Sample ID"].unique()))
-    print(adata.obs["Timepoint"].value_counts())
 
     post_samples = adata.obs[
     adata.obs["Sample ID"].str.startswith("Post")
