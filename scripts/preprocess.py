@@ -302,13 +302,6 @@ def preprocess_dataset(
 
     print("PASSSSSSSSSSS ----------------------------------------------- ")
 
-    tcr = pd.read_csv(
-    	"/Users/anishsinha/Downloads/GSM7791218_SPFS_C1D1_1_5_1_10_1_12_1_17_TCR_filtered_contig_annotations.csv.gz"
-    )
-
-    print(tcr.shape)
-    print(tcr.columns.tolist())
-    print(tcr.head())
 
     adata.obs_names_make_unique()
 
