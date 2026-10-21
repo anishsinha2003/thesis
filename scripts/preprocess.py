@@ -10,6 +10,7 @@ from src.preprocessing.loaders.load_data_h5ad_data import read_multiple_h5ad_fil
 from src.preprocessing.loaders.load_data_tabular import load_tabular_folder
 from src.preprocessing.loaders.load_data_10x_h5 import read_multiple_10x_h5_samples
 from src.preprocessing.loaders.load_data_10x_mtx import read_multiple_10x_samples
+from src.preprocessing.loaders.load_data_rds import load_data_rds
 from src.preprocessing.loaders.dataset_specfic_loaders.GSE169246 import load_gse169246
 from src.preprocessing.qc import run_qc
 from src.preprocessing.normalise import normalise
@@ -293,6 +294,10 @@ def preprocess_dataset(
         adata = read_multiple_10x_h5_samples(
             Path(input_dir)
         )
+    elif data_format == "rds":
+        adata = load_data_rds(
+            Path(input_dir)
+        )
     elif callable(data_format):
         adata = data_format(Path(input_dir))
     else:
@@ -398,7 +403,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["GSE217245"]
+dataset = DATASETS["SCP1493"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],

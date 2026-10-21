@@ -1,3 +1,5 @@
+
+
 from .config import DATASETS_TO_PREPROCESS
 from .config import PREPROCESSED_DATA
 
@@ -12,6 +14,17 @@ from .metadata_helpers.GSE205506 import add_metadata as gse205506_metadata
 from .metadata_helpers.GSE145281 import add_metadata as gse145281_metadata
 from .metadata_helpers.GSE130157 import add_metadata as gse130157_metadata
 from .metadata_helpers.GSE270235 import add_metadata as gse270235_metadata
+from .metadata_helpers.GSE166181 import add_metadata as gse166181_metadata
+from .metadata_helpers.GSE141383 import add_metadata as gse141383_metadata
+from .metadata_helpers.GSE159977 import add_metadata as gse159977_metadata
+from .metadata_helpers.GSE117988 import add_metadata as gse117988_metadata
+from .metadata_helpers.GSE118056 import add_metadata as gse118056_metadata
+from .metadata_helpers.GSE179784 import add_metadata as gse179784_metadata
+from .metadata_helpers.SCP1493 import add_metadata as scp1493_metadata
+
+
+
+
 from .metadata_helpers.bi import add_metadata as bi_metadata
 
 
@@ -19,6 +32,13 @@ from .loaders.dataset_specfic_loaders.GSE169246 import load_gse169246
 from .loaders.dataset_specfic_loaders.GSE145281 import load_gse145281
 from .loaders.dataset_specfic_loaders.GSE130157 import load_gse130157
 from .loaders.dataset_specfic_loaders.GSE270235 import load_gse270235
+from .loaders.dataset_specfic_loaders.GSE166181 import load_gse166181
+from .loaders.dataset_specfic_loaders.GSE141383 import load_gse141383
+from .loaders.dataset_specfic_loaders.GSE118056 import load_gse118056
+from .loaders.dataset_specfic_loaders.GSE117988 import load_gse117988
+from .loaders.dataset_specfic_loaders.SCP1493 import load_scp1493
+
+
 from .loaders.dataset_specfic_loaders.bi import load_bi
 
 # ============================================================
@@ -142,12 +162,69 @@ DATASETS = {
         "source_assembly": "hg19",
     },
 
-    "bi": {
-        "input_dir": DATASETS_TO_PREPROCESS / "bi",
-        "output_file": PREPROCESSED_DATA / "bi",
-        "data_format": load_bi,
+    #new datasets
+    # was rds then converted to h5ad
+    "GSE179784": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE179784",
+        "output_file": PREPROCESSED_DATA / "GSE179784",
+        "data_format": "h5ad",
         "prefix": "",
-        "metadata_fn": bi_metadata,
+        "metadata_fn": gse179784_metadata,
         "source_assembly": "hg19",
     },
+
+    "GSE166181": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE166181",
+        "output_file": PREPROCESSED_DATA / "GSE166181",
+        "data_format": "tabular",
+        "prefix": "",
+        "metadata_fn": gse166181_metadata,
+        "source_assembly": "hg19",
+    },
+    # no resp lbls
+    "GSE141383": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE141383",
+        "output_file": PREPROCESSED_DATA / "GSE141383",
+        "data_format": load_gse141383,
+        "prefix": "",
+        "metadata_fn": gse141383_metadata,
+        "source_assembly": "hg19",
+    },
+    # no resp lbls
+    "GSE159977": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE159977",
+        "output_file": PREPROCESSED_DATA / "GSE159977",
+        "data_format": "10x",
+        "prefix": "",
+        "metadata_fn": gse159977_metadata,
+        "source_a"
+        "ssembly": "hg38",
+    },
+    # no resp lbls
+    "GSE117988" : {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE117988",
+        "output_file": PREPROCESSED_DATA / "GSE117988",
+        "data_format": load_gse117988,
+        "prefix": "",
+        "metadata_fn": gse117988_metadata,
+        "source_assembly": "hg38",
+    },
+    # no resp lbls
+    "GSE118056": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE118056",
+        "output_file": PREPROCESSED_DATA / "GSE118056",
+        "data_format": load_gse118056,
+        "prefix": "",
+        "metadata_fn": gse118056_metadata,
+        "source_assembly": "GRCh38",
+    },
+    "SCP1493": {
+        "input_dir": DATASETS_TO_PREPROCESS / "SCP1493",
+        "output_file": PREPROCESSED_DATA / "SCP1493",
+        "data_format": load_scp1493,
+        "prefix": "",
+        "metadata_fn": scp1493_metadata,
+        "source_assembly": "human",
+    },
+
 }
