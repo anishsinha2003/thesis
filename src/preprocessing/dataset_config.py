@@ -183,7 +183,7 @@ DATASETS = {
         "data_format": "tabular",
         "prefix": "",
         "metadata_fn": gse207422_metadata,
-        "source_assembly": "human",
+        "source_assembly": "hg38",
     },
     # cant find R labels
     "SCP1493": {
