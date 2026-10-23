@@ -5,7 +5,7 @@ from .config import PREPROCESSED_DATA
 
 from .metadata_helpers.GSE217245 import add_metadata as gse217245_metadata
 from .metadata_helpers.GSE243572 import add_metadata as gse243572_metadata
-from .metadata_helpers.GSE212217 import add_metadata as gse212217_metadata
+# from .metadata_helpers.GSE212217 import add_metadata as gse212217_metadata
 from .metadata_helpers.GSE164237 import add_metadata as gse164237_metadata
 from .metadata_helpers.GSE169246 import add_metadata as gse169246_metadata
 from .metadata_helpers.GSE185204 import add_metadata as gse185204_metadata
@@ -77,15 +77,15 @@ DATASETS = {
         "source_assembly": "hg38",
     },
 
-    # works - memory too small
-    "GSE212217": {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE212217",
-        "output_file": PREPROCESSED_DATA / "GSE212217",
-        "data_format": "h5",
-        "prefix": "",
-        "metadata_fn": gse212217_metadata,
-        "source_assembly": "hg38",
-    },
+    # # works - memory too small
+    # "GSE212217": {
+    #     "input_dir": DATASETS_TO_PREPROCESS / "GSE212217",
+    #     "output_file": PREPROCESSED_DATA / "GSE212217",
+    #     "data_format": "h5",
+    #     "prefix": "",
+    #     "metadata_fn": gse212217_metadata,
+    #     "source_assembly": "hg38",
+    # },
 
     # cant find raw data
     # "EGAS00001004809": {
