@@ -197,7 +197,7 @@ DATASETS = {
     "GSE166181": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE166181",
         "output_file": PREPROCESSED_DATA / "GSE166181",
-        "data_format": "tabular",
+        "data_format": load_gse166181,
         "prefix": "",
         "metadata_fn": gse166181_metadata,
         "source_assembly": "hg19",
