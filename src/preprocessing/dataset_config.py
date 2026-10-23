@@ -20,6 +20,7 @@ from .metadata_helpers.GSE159977 import add_metadata as gse159977_metadata
 from .metadata_helpers.GSE117988 import add_metadata as gse117988_metadata
 from .metadata_helpers.GSE118056 import add_metadata as gse118056_metadata
 from .metadata_helpers.GSE179784 import add_metadata as gse179784_metadata
+from .metadata_helpers.GSE207422 import add_metadata as gse207422_metadata
 from .metadata_helpers.SCP1493 import add_metadata as scp1493_metadata
 
 
@@ -173,51 +174,18 @@ DATASETS = {
         "source_assembly": "hg19",
     },
 
-    "GSE166181": {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE166181",
-        "output_file": PREPROCESSED_DATA / "GSE166181",
+
+    # new again
+
+    "GSE207422": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE207422",
+        "output_file": PREPROCESSED_DATA / "GSE207422",
         "data_format": "tabular",
         "prefix": "",
-        "metadata_fn": gse166181_metadata,
-        "source_assembly": "hg19",
+        "metadata_fn": gse207422_metadata,
+        "source_assembly": "human",
     },
-    # no resp lbls
-    "GSE141383": {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE141383",
-        "output_file": PREPROCESSED_DATA / "GSE141383",
-        "data_format": load_gse141383,
-        "prefix": "",
-        "metadata_fn": gse141383_metadata,
-        "source_assembly": "hg19",
-    },
-    # no resp lbls
-    "GSE159977": {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE159977",
-        "output_file": PREPROCESSED_DATA / "GSE159977",
-        "data_format": "10x",
-        "prefix": "",
-        "metadata_fn": gse159977_metadata,
-        "source_a"
-        "ssembly": "hg38",
-    },
-    # no resp lbls
-    "GSE117988" : {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE117988",
-        "output_file": PREPROCESSED_DATA / "GSE117988",
-        "data_format": load_gse117988,
-        "prefix": "",
-        "metadata_fn": gse117988_metadata,
-        "source_assembly": "hg38",
-    },
-    # no resp lbls
-    "GSE118056": {
-        "input_dir": DATASETS_TO_PREPROCESS / "GSE118056",
-        "output_file": PREPROCESSED_DATA / "GSE118056",
-        "data_format": load_gse118056,
-        "prefix": "",
-        "metadata_fn": gse118056_metadata,
-        "source_assembly": "GRCh38",
-    },
+    # cant find R labels
     "SCP1493": {
         "input_dir": DATASETS_TO_PREPROCESS / "SCP1493",
         "output_file": PREPROCESSED_DATA / "SCP1493",
@@ -226,5 +194,19 @@ DATASETS = {
         "metadata_fn": scp1493_metadata,
         "source_assembly": "human",
     },
+    "GSE166181": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE166181",
+        "output_file": PREPROCESSED_DATA / "GSE166181",
+        "data_format": "tabular",
+        "prefix": "",
+        "metadata_fn": gse166181_metadata,
+        "source_assembly": "hg19",
+    },
+    # cant find R labels - in excelt but doenst have R/NR labels
+    "GSE115978" :{
+
+    }
+
+
 
 }

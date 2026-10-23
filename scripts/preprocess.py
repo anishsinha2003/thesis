@@ -403,7 +403,7 @@ def preprocess_dataset(
 
     return adata
 
-dataset = DATASETS["SCP1493"]
+dataset = DATASETS["GSE166181"]
 
 preprocess_dataset(
     input_dir=dataset["input_dir"],
