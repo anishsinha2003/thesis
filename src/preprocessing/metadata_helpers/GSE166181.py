@@ -12,7 +12,7 @@ from src.preprocessing.config import DATASETS_TO_PREPROCESS
 # Metadata File
 # ============================================================
 
-METADATA_FILE = DATASETS_TO_PREPROCESS / "GSE166181_Metadata.tsv"
+METADATA_FILE = DATASETS_TO_PREPROCESS / "GSE166181" / "GSE166181_Metadata.tsv"
 
 
 # ============================================================
