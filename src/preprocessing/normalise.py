@@ -10,6 +10,7 @@
 # What normalisation does: It rescales expression values so: all cells are on similar scale
 
 import scanpy as sc
+from scipy import sparse
 
 def normalise(adata):
 
