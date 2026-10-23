@@ -10,9 +10,26 @@
 # What normalisation does: It rescales expression values so: all cells are on similar scale
 
 import scanpy as sc
+import numpy as np
 from scipy import sparse
 
 def normalise(adata):
+    X = adata.X
+
+    if sparse.issparse(X):
+        values = X.data
+    else:
+        values = np.asarray(X).ravel()
+
+    bad_mask = np.array([
+        not isinstance(v, (int, float, np.integer, np.floating))
+        for v in values
+    ])
+
+    print("Matrix dtype:", X.dtype)
+    print("Number of non-numeric values:", bad_mask.sum())
+    print("Examples:", values[bad_mask][:20])
+
 
     # ============================================================
     # Normalisation of Gene Expression Data
@@ -38,17 +55,6 @@ def normalise(adata):
     # CHANGED by adding raw data to the adata
     # to ensure the raw data is not changed
     adata.raw = adata.copy()
-    X = adata.X
-
-    print("Matrix dtype:", X.dtype)
-
-    if sparse.issparse(X):
-        print("Matrix sample:", X.data[:20])
-    else:
-        print("Matrix sample:", X.flat[:20])
-
-    if X.dtype == object or X.dtype.kind in {"U", "S"}:
-        print("WARNING: Matrix contains a non-numeric dtype")
 
     sc.pp.normalize_total(
         adata,
