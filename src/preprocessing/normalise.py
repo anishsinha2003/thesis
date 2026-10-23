@@ -33,11 +33,22 @@ def normalise(adata):
     # first make sure the raw data is saved in the adata.layers["counts"]
     if "counts" not in adata.layers:
         adata.layers["counts"] = adata.X.copy()
-    
+
     # CHANGED by adding raw data to the adata
     # to ensure the raw data is not changed
     adata.raw = adata.copy()
-    
+    X = adata.X
+
+    print("Matrix dtype:", X.dtype)
+
+    if sparse.issparse(X):
+        print("Matrix sample:", X.data[:20])
+    else:
+        print("Matrix sample:", X.flat[:20])
+
+    if X.dtype == object or X.dtype.kind in {"U", "S"}:
+        print("WARNING: Matrix contains a non-numeric dtype")
+
     sc.pp.normalize_total(
         adata,
         target_sum=1e4
