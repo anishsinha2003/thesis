@@ -4,8 +4,8 @@ from pathlib import Path
 # ============================================================
 
 PROJECT_ROOT = Path(
-    "/Users/anishsinha/Desktop/thesis/preprocessing"
-    # "/media/rokny/DATA3/Anish/preprocessing"
+    # "/Users/anishsinha/Desktop/thesis/preprocessing"
+    "/media/rokny/DATA3/Anish/preprocessing"
 )
 
 # ============================================================
