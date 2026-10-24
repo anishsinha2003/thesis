@@ -73,6 +73,8 @@ def add_metadata(adata):
     adata.obs["Cancer type"] = "NSCLC"
     adata.obs["Tissue"] = "Unknown"
 
+    adata.obs["Treatment"] = "Toripalimab + Chemotherapy"
+
     print("Metadata matching:")
     print(
         "Matched samples:",
