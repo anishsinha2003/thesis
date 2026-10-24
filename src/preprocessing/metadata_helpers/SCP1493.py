@@ -1,10 +1,10 @@
 
 import pandas as pd
 from pathlib import Path
+from ..config import DATASETS_TO_PREPROCESS
 
-
-def add_metadata(adata, input_dir):
-    input_dir = Path(input_dir)
+def add_metadata(adata):
+    input_dir = Path(DATASETS_TO_PREPROCESS) / "SCP1493"
 
     metadata = pd.read_csv(
         input_dir / "BM_c1000_base_metadata.tsv",
