@@ -24,7 +24,6 @@ def get_response(response):
     elif response in [
         "non-responder",
         "non responder",
-        "non-responder",
         "nonresponders",
         "progression",
     ]:
@@ -60,12 +59,16 @@ def add_metadata(adata):
         )
 
     metadata["NAME"] = metadata["NAME"].astype(str)
+
     metadata = (
         metadata.drop_duplicates("NAME")
         .set_index("NAME")
     )
 
+    # --------------------------------------------------------
     # Match metadata to cells
+    # --------------------------------------------------------
+
     matched = metadata.reindex(adata.obs_names.astype(str))
 
     for column in matched.columns:
@@ -87,28 +90,64 @@ def add_metadata(adata):
     adata.obs["Cancer Subtype"] = "Melanoma"
     adata.obs["Disease Stage"] = "Metastatic"
     adata.obs["Tissue"] = "Brain metastasis"
-    adata.obs["Treatment"] = "Immune Checkpoint Inhibitor"
-    adata.obs["Treatment Class"] = "Immune Checkpoint Inhibitor"
+
+    adata.obs["Treatment"] = (
+        "Immune Checkpoint Inhibitor"
+    )
+
+    adata.obs["Treatment Class"] = (
+        "Immune Checkpoint Inhibitor"
+    )
 
     # --------------------------------------------------------
     # Sample ID
     # --------------------------------------------------------
 
-    if "Sample ID" not in adata.obs.columns:
+    if "biosample_id" in adata.obs.columns:
+        adata.obs["Sample ID"] = (
+            adata.obs["biosample_id"].astype(str)
+        )
+    else:
         adata.obs["Sample ID"] = "Unknown"
 
     # --------------------------------------------------------
     # Patient ID
     # --------------------------------------------------------
 
-    if "Patient ID" not in adata.obs.columns:
+    if "donor_id" in adata.obs.columns:
+        adata.obs["Patient ID"] = (
+            adata.obs["donor_id"].astype(str)
+        )
+    else:
         adata.obs["Patient ID"] = "Unknown"
 
     # --------------------------------------------------------
     # Response
     # --------------------------------------------------------
 
-    if "Response" not in adata.obs.columns:
+    # Only map response if the relevant column exists.
+    # The correct source column still needs to be confirmed.
+
+    response_columns = [
+        "response",
+        "Response",
+        "clinical_response",
+    ]
+
+    response_column = next(
+        (
+            column
+            for column in response_columns
+            if column in adata.obs.columns
+        ),
+        None,
+    )
+
+    if response_column is not None:
+        adata.obs["Response"] = (
+            adata.obs[response_column].apply(get_response)
+        )
+    else:
         adata.obs["Response"] = "Unknown"
 
     return adata
