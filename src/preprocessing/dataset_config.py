@@ -21,6 +21,9 @@ from .metadata_helpers.GSE117988 import add_metadata as gse117988_metadata
 from .metadata_helpers.GSE118056 import add_metadata as gse118056_metadata
 from .metadata_helpers.GSE179784 import add_metadata as gse179784_metadata
 from .metadata_helpers.GSE207422 import add_metadata as gse207422_metadata
+from .metadata_helpers.GSE115978 import add_metadata as gse115978_metadata
+
+
 from .metadata_helpers.SCP1493 import add_metadata as scp1493_metadata
 
 
@@ -38,6 +41,8 @@ from .loaders.dataset_specfic_loaders.GSE141383 import load_gse141383
 from .loaders.dataset_specfic_loaders.GSE118056 import load_gse118056
 from .loaders.dataset_specfic_loaders.GSE117988 import load_gse117988
 from .loaders.dataset_specfic_loaders.GSE207422 import load_gse207422
+from .loaders.dataset_specfic_loaders.GSE115978 import load_gse115978
+
 from .loaders.dataset_specfic_loaders.SCP1493 import load_scp1493
 
 
@@ -205,9 +210,14 @@ DATASETS = {
         "source_assembly": "hg19",
     },
     # cant find R labels - in excelt but doenst have R/NR labels
-    "GSE115978" :{
-
-    }
+    "GSE115978": {
+        "input_dir": DATASETS_TO_PREPROCESS / "GSE115978",
+        "output_file": PREPROCESSED_DATA / "GSE115978",
+        "data_format": load_gse115978,
+        "prefix": "",
+        "metadata_fn": gse115978_metadata,
+        "source_assembly": "hg19",
+    },
 
 
 
