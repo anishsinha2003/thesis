@@ -182,7 +182,7 @@ DATASETS = {
 
 
     # new again
-
+    # done
     "GSE207422": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE207422",
         "output_file": PREPROCESSED_DATA / "GSE207422",
@@ -198,7 +198,7 @@ DATASETS = {
         "data_format": load_scp1493,
         "prefix": "",
         "metadata_fn": scp1493_metadata,
-        "source_assembly": "human",
+        "source_assembly": "hg38",
     },
     # done
     "GSE166181": {
@@ -209,7 +209,7 @@ DATASETS = {
         "metadata_fn": gse166181_metadata,
         "source_assembly": "hg19",
     },
-    # cant find R labels - in excelt but doenst have R/NR labels
+    # done
     "GSE115978": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE115978",
         "output_file": PREPROCESSED_DATA / "GSE115978",
