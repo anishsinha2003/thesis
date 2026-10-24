@@ -1011,6 +1011,17 @@ def harmonise_and_annotate(
         target_hg38_gff,
         standard_chromosomes_only=standard_chromosomes_only,
     )
+    print("\n=== DEBUG: Target annotation ===")
+    print("Target annotation file:", target_hg38_gff)
+    print("Number of target genes:", len(target_ref))
+    print("Example target gene IDs:")
+    print(target_ref["gene_id"].head().tolist())
+    print("Example target gene symbols:")
+    print(target_ref["gene_symbol"].head(20).tolist())
+    print(
+        "Target genes with symbols:",
+        target_ref["gene_symbol"].astype(str).ne("").sum()
+    )
     lift_ref = (
         read_gene_annotation(
             target_v49_lift37_gtf,
@@ -1083,6 +1094,18 @@ def harmonise_and_annotate(
         target_hg38=target_ref,
         target_lift37=lift_ref,
         history_map=history_map,
+    )
+    print("\n=== DEBUG: Gene mapping ===")
+    print("Detected feature type:", feature_kind)
+    print("Resolved assembly:", resolved_assembly)
+    print("Example input genes:", list(features[:20]))
+    print("Mapping status counts:")
+    print(mapping["mapping_status"].value_counts())
+    print("Example mapping results:")
+    print(
+        mapping[
+            ["original_feature", "target_gene_id", "mapping_status"]
+        ].head(20)
     )
     mapping = _mark_mapping_cardinality(
         mapping, expression_kind=expression_kind
