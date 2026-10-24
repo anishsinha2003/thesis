@@ -37,6 +37,7 @@ from .loaders.dataset_specfic_loaders.GSE166181 import load_gse166181
 from .loaders.dataset_specfic_loaders.GSE141383 import load_gse141383
 from .loaders.dataset_specfic_loaders.GSE118056 import load_gse118056
 from .loaders.dataset_specfic_loaders.GSE117988 import load_gse117988
+from .loaders.dataset_specfic_loaders.GSE207422 import load_gse207422
 from .loaders.dataset_specfic_loaders.SCP1493 import load_scp1493
 
 
@@ -180,7 +181,7 @@ DATASETS = {
     "GSE207422": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE207422",
         "output_file": PREPROCESSED_DATA / "GSE207422",
-        "data_format": "tabular",
+        "data_format": load_gse207422,
         "prefix": "",
         "metadata_fn": gse207422_metadata,
         "source_assembly": "hg38",
@@ -194,6 +195,7 @@ DATASETS = {
         "metadata_fn": scp1493_metadata,
         "source_assembly": "human",
     },
+    # done
     "GSE166181": {
         "input_dir": DATASETS_TO_PREPROCESS / "GSE166181",
         "output_file": PREPROCESSED_DATA / "GSE166181",
