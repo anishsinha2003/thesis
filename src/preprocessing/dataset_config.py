@@ -191,7 +191,7 @@ DATASETS = {
         "metadata_fn": gse207422_metadata,
         "source_assembly": "hg38",
     },
-    # cant find R labels
+    # done
     "SCP1493": {
         "input_dir": DATASETS_TO_PREPROCESS / "SCP1493",
         "output_file": PREPROCESSED_DATA / "SCP1493",
